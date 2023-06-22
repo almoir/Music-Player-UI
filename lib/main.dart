@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 
 void main() {
-  runApp(const myApp());
+  runApp(const MyApp());
 }
 
-// ignore: camel_case_types
-class myApp extends StatelessWidget {
-  const myApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Music Player UI',
+      title: "Music Player UI",
       home: Home(),
     );
   }
@@ -41,7 +38,7 @@ class _HomeState extends State<Home> {
               end: Alignment.bottomCenter,
               colors: [
                 Color(0xff0D0D0D),
-                Color(0xff0D0D0D),
+                Color(0xff0d0d0d),
               ],
             ),
           ),
@@ -54,7 +51,10 @@ class _HomeState extends State<Home> {
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.share),
+          ),
           IconButton(
             onPressed: () {
               setState(() {
@@ -93,10 +93,11 @@ class _HomeState extends State<Home> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(25.0),
                     child: Image(
-                        image: Song().albumCover,
-                        fit: BoxFit.cover,
-                        width: MediaQuery.of(context).size.width * .850,
-                        height: MediaQuery.of(context).size.height * .400),
+                      image: Song().albumCover,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width * .80,
+                      height: MediaQuery.of(context).size.height * .400,
+                    ),
                   ),
                 ],
               ),
@@ -104,46 +105,50 @@ class _HomeState extends State<Home> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            Song().title,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                if (love) {
+                                  love = false;
+                                } else {
+                                  love = true;
+                                }
+                              });
+                            },
+                            icon: Icon(
+                              love ? Icons.favorite : Icons.favorite_border,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          Song().title,
+                          Song().singer,
                           style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              if (love) {
-                                love = false;
-                              } else {
-                                love = true;
-                              }
-                            });
-                          },
-                          icon: Icon(
-                            love ? Icons.favorite : Icons.favorite_border,
-                            color: Colors.red,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
                           ),
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          Song().Singer,
-                          style: const TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                      ],
-                    ),
                     const SizedBox(
-                      height: 30.0,
+                      height: 30,
                     ),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5.0),
@@ -155,23 +160,23 @@ class _HomeState extends State<Home> {
                         minHeight: 5.0,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text(
-                            "2:46",
+                            '2:46',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "3:46",
+                            '3:46',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -205,7 +210,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     const SizedBox(
-                      height: 100.0,
+                      height: 50,
                     ),
                   ],
                 ),
@@ -220,7 +225,6 @@ class _HomeState extends State<Home> {
 
 class Song {
   String title = "My Universe";
-  // ignore: non_constant_identifier_names
-  String Singer = "Coldplay X BTS";
+  String singer = "Coldplay X BTS";
   AssetImage albumCover = const AssetImage("assets/images/cover.jpg");
 }
